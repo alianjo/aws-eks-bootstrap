@@ -7,12 +7,15 @@ tasks:
       unzip terraform.zip
       sudo mv terraform /usr/local/bin/
       terraform version
+      rm terraform.zip
+      rm LICENSE.txt
 
       # Install AWS CLI
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
       unzip awscliv2.zip
       sudo ./aws/install
       aws --version
+      rm -rf aws*
 
       # Install kubectl
       curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -25,6 +28,7 @@ tasks:
       chmod 700 get_helm.sh
       ./get_helm.sh
       helm version
+      rm get_helm.sh
 vscode:
   extensions:
     - hashicorp.terraform

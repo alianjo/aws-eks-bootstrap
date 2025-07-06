@@ -1,0 +1,62 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateServiceLinkedRole"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "iam:AWSServiceName": "elasticloadbalancing.amazonaws.com"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticloadbalancing:Describe*",
+        "elasticloadbalancing:*LoadBalancer",
+        "elasticloadbalancing:*TargetGroup",
+        "ec2:Describe*",
+        "ec2:Get*",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress",
+        "ec2:CreateSecurityGroup",
+        "ec2:CreateTags",
+        "ec2:DeleteTags",
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:RevokeSecurityGroupEgress",
+        "ec2:DeleteSecurityGroup"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "cognito-idp:DescribeUserPool",
+        "cognito-idp:DescribeUserPoolClient",
+        "acm:DescribeCertificate",
+        "acm:ListCertificates",
+        "iam:ListServerCertificates",
+        "iam:GetServerCertificate",
+        "waf-regional:GetWebACL",
+        "waf-regional:GetWebACLForResource",
+        "waf-regional:AssociateWebACL",
+        "waf-regional:DisassociateWebACL",
+        "wafv2:GetWebACL",
+        "wafv2:GetWebACLForResource",
+        "wafv2:AssociateWebACL",
+        "wafv2:DisassociateWebACL",
+        "shield:DescribeProtection",
+        "shield:GetSubscriptionState",
+        "shield:DescribeDRTAccess",
+        "shield:DescribeSubscription",
+        "shield:CreateProtection",
+        "shield:DeleteProtection"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
