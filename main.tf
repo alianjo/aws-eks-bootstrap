@@ -57,7 +57,7 @@ module "eks" {
 
   access_entries = {
     cloud-user-admin = {
-      principal_arn = variable.principal_arn
+      principal_arn = var.principal_arn
 
       policy_associations = {
         admin-access = {

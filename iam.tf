@@ -1,3 +1,13 @@
+resource "aws_iam_policy" "elb_node_policy" {
+  name   = "EKSNodeELBAccessPolicy"
+  policy = file("${path.module}/policies/elb_controller_policy.json")
+}
+
+resource "aws_iam_role_policy_attachment" "attach_elb_policy_to_nodes" {
+  policy_arn = aws_iam_policy.elb_node_policy.arn
+  role       = module.eks.eks_managed_node_groups["default"].iam_role_name
+}
+
 data "aws_iam_policy_document" "aws_lbc" {
   statement {
     actions = ["sts:AssumeRoleWithWebIdentity"]
@@ -26,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "aws_lbc" {
 
 resource "aws_iam_policy" "AWSLoadBalancerControllerIAMPolicy" {
   name   = "AWSLoadBalancerControllerIAMPolicy"
-  policy = file("iam-policy.json")
+  policy = file("${path.module}/policies/iam-policy.json")
 }
 
 data "aws_iam_policy_document" "external_dns" {

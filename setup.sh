@@ -6,7 +6,7 @@ echo "Starting EKS setup in Pluralsight AWS sandbox..."
 
 # Initialize Terraform
 echo "Initializing Terraform..."
-terraform init 
+terraform init
 
 # Apply Terraform configuration
 echo "Applying Terraform configuration..."
