@@ -1,0 +1,32 @@
+image: gitpod/workspace-full:latest
+tasks:
+  - name: Install Dependencies
+    init: |
+      # Install Terraform
+      curl -fsSL https://releases.hashicorp.com/terraform/1.9.2/terraform_1.9.2_linux_amd64.zip -o terraform.zip
+      unzip terraform.zip
+      sudo mv terraform /usr/local/bin/
+      terraform version
+
+      # Install AWS CLI
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      aws --version
+
+      # Install kubectl
+      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      sudo mv kubectl /usr/local/bin/
+      sudo chmod +x /usr/local/bin/kubectl
+      kubectl version --client
+
+      # Install Helm
+      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+      chmod 700 get_helm.sh
+      ./get_helm.sh
+      helm version
+vscode:
+  extensions:
+    - hashicorp.terraform
+    - ms-vscode.vscode-typescript-next
+    - redhat.vscode-yaml
