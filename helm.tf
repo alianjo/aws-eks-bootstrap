@@ -20,6 +20,13 @@ resource "helm_release" "aws_lbc" {
   depends_on = [module.eks]
 }
 
+resource "kubernetes_namespace" "ingress_nginx" {
+  metadata {
+    name = "ingress-nginx"
+  }
+  depends_on = [module.eks]
+}
+
 resource "helm_release" "nginx_ingress" {
   name       = "nginx-ingress"
   repository = "https://kubernetes.github.io/ingress-nginx"
