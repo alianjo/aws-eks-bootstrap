@@ -2,12 +2,13 @@
 
 set -e
 
-echo "Starting EKS setup in Pluralsight AWS sandbox..."
-
 # Initialize Terraform
 echo "Initializing Terraform..."
 terraform init
 
+# Create var file
+arn=$(aws sts get-caller-identity --query Arn --output text)
+echo "principal_arn = \"$arn\"" > terraform.tfvars
 # Apply Terraform configuration
 echo "Applying Terraform configuration..."
 terraform apply -auto-approve
