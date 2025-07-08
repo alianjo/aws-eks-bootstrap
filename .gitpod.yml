@@ -1,46 +1,9 @@
-image: gitpod/workspace-full:latest
+image:
+  file: .gitpod.Dockerfile
+
 tasks:
-  - name: Install Dependencies
-    init: |
-      # Install Terraform
-      curl -fsSL https://releases.hashicorp.com/terraform/1.9.2/terraform_1.9.2_linux_amd64.zip -o terraform.zip
-      unzip terraform.zip
-      sudo mv terraform /usr/local/bin/
-      terraform version
-      rm terraform.zip
-      rm LICENSE.txt
-
-      # Install AWS CLI
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      unzip awscliv2.zip
-      sudo ./aws/install
-      aws --version
-      rm -rf aws*
-
-      # Install kubectl
-      curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-      sudo mv kubectl /usr/local/bin/
-      sudo chmod +x /usr/local/bin/kubectl
-      kubectl version --client
-
-      # Install Helm
-      curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-      chmod 700 get_helm.sh
-      ./get_helm.sh
-      helm version
-      rm get_helm.sh
-
-      ARCH=amd64
-      PLATFORM=$(uname -s)_$ARCH
-
-      curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
-
-      # (Optional) Verify checksum
-      curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
-
-      tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
-
-      sudo install -m 0755 /tmp/eksctl /usr/local/bin && rm /tmp/eksctl
+  - name: Ready
+    command: echo "Workspace ready!"
 
 vscode:
   extensions:
