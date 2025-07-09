@@ -1,7 +1,8 @@
 FROM gitpod/workspace-full:latest
 
-# Install system dependencies
 USER root
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     unzip \
     curl \
@@ -25,19 +26,21 @@ RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/ter
     rm terraform.zip
 
 # Install kubectl
-ARG KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt)
-RUN curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+RUN KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt) && \
+    curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     install -m 0755 kubectl /usr/local/bin && \
     rm kubectl
 
 # Install eksctl
-ENV EKSCTL_VERSION=latest
 RUN ARCH=amd64 && \
     PLATFORM=linux_$ARCH && \
-    curl --silent --location "https://github.com/eksctl-io/eksctl/releases/${EKSCTL_VERSION}/download/eksctl_${PLATFORM}.tar.gz" | tar xz -C /tmp && \
+    curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz" | tar xz -C /tmp && \
     mv /tmp/eksctl /usr/local/bin
 
-# Verify tools
-RUN terraform -version && aws --version && kubectl version --client && eksctl version
+# (Optional) Verify installations – split for clarity
+RUN terraform -version
+RUN aws --version
+RUN kubectl version --client
+RUN eksctl version
 
 USER gitpod
