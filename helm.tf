@@ -54,7 +54,7 @@ resource "helm_release" "external_dns" {
   }
   set {
     name  = "aws.region"
-    value = "us-west-2"
+    value = "us-east-1"
   }
   set {
     name  = "serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
