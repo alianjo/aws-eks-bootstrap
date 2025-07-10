@@ -33,10 +33,17 @@ RUN curl -LO "https://dl.k8s.io/release/v1.30.1/bin/linux/amd64/kubectl" && \
 RUN curl -L "https://github.com/eksctl-io/eksctl/releases/download/v0.173.0/eksctl_Linux_amd64.tar.gz" | tar xz -C /tmp && \
     mv /tmp/eksctl /usr/local/bin
 
+# Install Helm
+RUN curl -LO https://get.helm.sh/helm-v3.15.4-linux-amd64.tar.gz && \
+    tar -zxvf helm-v3.15.4-linux-amd64.tar.gz && \
+    sudo mv linux-amd64/helm /usr/local/bin/helm && \
+    rm -rf helm-v3.15.4-linux-amd64.tar.gz linux-amd64
+
 # Verify installations
 RUN terraform -version
 RUN aws --version
 RUN kubectl version --client
 RUN eksctl version
+RUN helm version
 
 USER gitpod
