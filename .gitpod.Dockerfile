@@ -19,21 +19,18 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
     rm -rf awscliv2.zip aws
 
 # Install Terraform
-ENV TERRAFORM_VERSION=1.9.2
-RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -o terraform.zip && \
+RUN curl -fsSL https://releases.hashicorp.com/terraform/1.9.2/terraform_1.9.2_linux_amd64.zip -o terraform.zip && \
     unzip terraform.zip && \
     mv terraform /usr/local/bin/ && \
     rm terraform.zip
 
-# ✅ Fixed: Install kubectl
+# Install kubectl (no variables)
 RUN curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     install -m 0755 kubectl /usr/local/bin && \
     rm kubectl
 
-# Install eksctl
-RUN ARCH=amd64 && \
-    PLATFORM=linux_$ARCH && \
-    curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz" | tar xz -C /tmp && \
+# Install eksctl (no variables)
+RUN curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_linux_amd64.tar.gz" | tar xz -C /tmp && \
     mv /tmp/eksctl /usr/local/bin
 
 # Verify installations
