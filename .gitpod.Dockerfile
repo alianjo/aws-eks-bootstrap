@@ -25,9 +25,8 @@ RUN curl -fsSL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/ter
     mv terraform /usr/local/bin/ && \
     rm terraform.zip
 
-# Install kubectl
-RUN KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt) && \
-    curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+# ✅ Fixed: Install kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
     install -m 0755 kubectl /usr/local/bin && \
     rm kubectl
 
@@ -37,7 +36,7 @@ RUN ARCH=amd64 && \
     curl --silent --location "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_${PLATFORM}.tar.gz" | tar xz -C /tmp && \
     mv /tmp/eksctl /usr/local/bin
 
-# (Optional) Verify installations – split for clarity
+# Verify installations
 RUN terraform -version
 RUN aws --version
 RUN kubectl version --client
